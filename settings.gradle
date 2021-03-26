@@ -1,0 +1,3 @@
+include ':AksPermissionHelper'
+include ':app'
+rootProject.name = "Akshay_Permission_Helper"

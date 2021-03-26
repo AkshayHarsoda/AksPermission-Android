@@ -1,0 +1,7 @@
+<resources>
+    <string name="dialog_title">Permissions Required</string>
+    <string name="dialog_messages">Please, go to setting for allow permissions for %1$s.</string>
+    <string name="granted_permission_toast_message">%1$s permissions granted</string>
+    <string name="denied_permission_toast_message">%1$s permissions denied</string>
+    <string name="permanentlyDenied_permission_toast_message">%1$s permissions permanentlyDenied</string>
+</resources>
