@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Akshay_Permission_Helper.iml" filepath="$PROJECT_DIR$/.idea/modules/Akshay_Permission_Helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AksPermissionHelper/Akshay_Permission_Helper.AksPermissionHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/AksPermissionHelper/Akshay_Permission_Helper.AksPermissionHelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Akshay_Permission_Helper.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Akshay_Permission_Helper.app.iml" />
+    </modules>
+  </component>
+</project>
