@@ -1,21 +1,21 @@
 package com.akshay.harsoda.permission.helper.utiles
 
+import com.akshay.harsoda.permission.helper.callBack.PermissionResultListener
 import java.util.*
 
 /**
  * @author Akshay Harsoda
  * @since 18 Mar 2021
  */
-const val CODE_PERMISSION = 1313
-const val EXTRA_RESULT_RECEIVER = "result_receiver"
-const val EXTRA_REQUESTED_PERMISSIONS = "requested_permissions"
-const val EXTRA_REQUESTED_PERMISSION_DIALOG_DATA = "requested_permission_dialog_data"
-const val EXTRA_REQUESTED_PERMISSION_DIALOG_IS_SHOW = "extra_requested_permission_dialog_is_show"
-const val EXTRA_REQUESTED_PERMISSION_TOAST_IS_SHOW = "extra_requested_permission_toast_is_show"
-const val EXTRA_GRANTED_PERMISSIONS = "granted_permissions"
-const val EXTRA_DENIED_PERMISSIONS = "denied_permissions"
-const val EXTRA_PERMANENTLY_DENIED_PERMISSIONS = "permanently_denied_permissions"
+internal var mResultListener: PermissionResultListener? = null
 
+//<editor-fold desc="Permission Request Constant">
+const val CODE_PERMISSION = 1313
+const val EXTRA_REQUESTED_PERMISSIONS = "requested_permissions"
+const val IS_SKIP_AUTO_ASK_PERMISSION = "is_skip_auto_ask_permission"
+//</editor-fold>
+
+//<editor-fold desc="Get Permission Name">
 private inline val String.capitalize: String
     get() {
         val strLen = this.length
@@ -83,3 +83,4 @@ fun MutableList<String>.getPermissionName(): StringBuilder {
 
     return permissionBuilder
 }
+//</editor-fold>

@@ -1,3 +1,7 @@
 <resources>
-    <string name = "app_name">Akshay_Permiss_ionHelper</string>
+    <string name = "app_name">Akshay Permission Helper</string>
+    <string name="ask_single_permission">Ask Single Permission</string>
+    <string name="ask_multiple_permission">Ask Multiple Permission</string>
+    <string name="show_default_setting_dialog">Show Default Setting Dialog</string>
+    <string name="skip_auto_asking_repeated_permission">Skip Auto Asking Repeated Permission</string>
 </resources>

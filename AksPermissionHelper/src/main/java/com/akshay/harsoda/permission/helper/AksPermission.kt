@@ -9,6 +9,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import com.akshay.harsoda.permission.helper.request.PermissionRequest
+import com.akshay.harsoda.permission.helper.utiles.mResultListener
 
 /**
  * @author Akshay Harsoda
@@ -17,8 +18,6 @@ import com.akshay.harsoda.permission.helper.request.PermissionRequest
 @Suppress("unused")
 object AksPermission {
 
-    private var packageName: String? = null
-
     /**
      * Checks if runtime permissions are needed or not
      * @return true if android version is M or later
@@ -26,6 +25,7 @@ object AksPermission {
     @JvmStatic
     fun isMarshmallowOrLater() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
+    //<editor-fold desc="Checks if the permission is already granted">
     /**
      *Checks if the permission is already granted
      * @return true if permission is granted
@@ -36,25 +36,38 @@ object AksPermission {
         fPermission: String
     ) = ActivityCompat.checkSelfPermission(fContext, fPermission) == PackageManager.PERMISSION_GRANTED
 
+    /**
+     *Checks if the permission is already granted
+     * @return true if permission is granted
+     */
     @JvmStatic
     fun isGranted(
         fContext: Context,
         vararg fPermissions: String
     ) = fPermissions.none { permission -> !isGranted(fContext, permission) }
 
+    /**
+     *Checks if the permission is already granted
+     * @return true if permission is granted
+     */
     @JvmStatic
     fun isGranted(
         fContext: Context,
         fPermissions: Collection<String>
     ) = fPermissions.none { permission -> !isGranted(fContext, permission) }
 
+    /**
+     *Checks if the permission is already granted
+     * @return true if permission is granted
+     */
     @JvmStatic
     fun isGranted(
         fContext: Context,
         fPermissions: MutableSet<String>
     ) = fPermissions.none { permission -> !isGranted(fContext, permission) }
+    //</editor-fold>
 
-
+    //<editor-fold desc="Check shouldShowRationale & PermanentlyDenied">
     /**
      * Checks whether you should show UI with rationale for requesting a permission
      * @return true if need a rationale for request
@@ -75,7 +88,9 @@ object AksPermission {
         fPermission: String
     ) = ActivityCompat.checkSelfPermission(fActivity, fPermission) != PackageManager.PERMISSION_GRANTED &&
             !ActivityCompat.shouldShowRequestPermissionRationale(fActivity, fPermission)
+    //</editor-fold>
 
+    //<editor-fold desc="Creates an intent to open app settings activity">
     /**
      * Creates an intent to open app settings activity, it come in handy
      * in case that permission is permanently denied and you need
@@ -87,11 +102,12 @@ object AksPermission {
         return appDetailSettingsIntent(fContext.packageName)
     }
 
-    @JvmStatic
-    fun appDetailSettingsIntent(): Intent {
-        return appDetailSettingsIntent(packageName!!)
-    }
-
+    /**
+     * Creates an intent to open app settings activity, it come in handy
+     * in case that permission is permanently denied and you need
+     * to inform and redirect user to app settings
+     * @return an intent that redirects user to app settings
+     */
     @JvmStatic
     fun appDetailSettingsIntent(fPackageName: String): Intent {
         return Intent().apply {
@@ -103,10 +119,11 @@ object AksPermission {
             addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
         }
     }
+    //</editor-fold>
 
     @JvmStatic
-    fun with(fContext: Context): PermissionRequest {
-        packageName = fContext.packageName
+    fun with(fContext: Activity): PermissionRequest {
+        mResultListener = null
         return PermissionRequest(fContext)
     }
 }

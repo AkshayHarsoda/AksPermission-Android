@@ -15,6 +15,7 @@ class SettingDialogRequest : Serializable {
     private var mMessage: String? = null
     private var mPositiveText: String? = null
     private var mNegativeText: String? = null
+
     @ColorInt
     private var mTitleColor: Int? = null
     @ColorInt
@@ -23,11 +24,13 @@ class SettingDialogRequest : Serializable {
     private var mPositiveColor: Int? = null
     @ColorInt
     private var mNegativeColor: Int? = null
+
     private var mTitleTypeface: Typeface? = null
     private var mMessageTypeface: Typeface? = null
     private var mPositiveTypeface: Typeface? = null
     private var mNegativeTypeface: Typeface? = null
 
+    //<editor-fold desc="Set Dialog Text">
     @JvmName("setDialogTitle")
     @NonNull
     fun setDialogTitle(fTitle: String): SettingDialogRequest {
@@ -55,7 +58,9 @@ class SettingDialogRequest : Serializable {
         this.mNegativeText = fNegativeText
         return this
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Set Dialog Color">
     @JvmName("setDialogTitleColor")
     @NonNull
     fun setDialogTitleColor(@ColorInt fTitleColor: Int): SettingDialogRequest {
@@ -83,7 +88,9 @@ class SettingDialogRequest : Serializable {
         this.mNegativeColor = fNegativeColor
         return this
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Set Dialog Typeface">
     @JvmName("setDialogTitleTypeface")
     @NonNull
     fun setDialogTitleTypeface(fTitleTypeface: Typeface): SettingDialogRequest {
@@ -111,7 +118,9 @@ class SettingDialogRequest : Serializable {
         this.mNegativeTypeface = fNegativeTypeface
         return this
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Get Dialog Text">
     @JvmName("getDialogTitle")
     fun getDialogTitle(): String? {
         return this.mTitle
@@ -131,7 +140,9 @@ class SettingDialogRequest : Serializable {
     fun getDialogNegativeText(): String? {
         return this.mNegativeText
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Get Dialog Color">
     @JvmName("getDialogTitleColor")
     @ColorInt
     fun getDialogTitleColor(): Int? {
@@ -155,7 +166,9 @@ class SettingDialogRequest : Serializable {
     fun getDialogNegativeColor(): Int? {
         return this.mNegativeColor
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Get Dialog Typeface">
     @JvmName("getDialogTitleTypeface")
     fun getDialogTitleTypeface(): Typeface? {
         return this.mTitleTypeface
@@ -175,5 +188,6 @@ class SettingDialogRequest : Serializable {
     fun getDialogNegativeTypeface(): Typeface? {
         return this.mNegativeTypeface
     }
+    //</editor-fold>
 
 }
