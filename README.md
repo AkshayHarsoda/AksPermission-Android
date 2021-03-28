@@ -29,16 +29,12 @@
 #### In Kotlin
 
 ###### Ask Single Permission:
-```java
+```kotlin
         AksPermission.with(this@MainActivity)
-                    .permission(Manifest.permission.READ_CALENDAR)
+                    .permissions(Manifest.permission.READ_CALENDAR)
                     .isShowDefaultSettingDialog(
                         // Pass false if you don't want to showing a default setting dialog if some permissions are permanently denied.
                         true // Default value is true,
-                    )
-                    .isShowDefaultToast(
-                        // Pass true if you want to showing a default toast message after user action.
-                         false // Default value is false,
                     )
                     .request { grantedList ->
                         // you have get the all granted permissions list on here
@@ -49,15 +45,15 @@
 ```
 
 ###### Ask Multiple Permission:
-```java
+```kotlin
         AksPermission.with(this@MainActivity)
-                    .permissionList(
+                    .permissions(
                         Manifest.permission.CAMERA,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.RECORD_AUDIO
                     ) // You can pass N number of permission
-                    .setCustomSettingDialog(
-                        // If you want to customize your settings dialog,
+                    .setDefaultSettingDialog(
+                        // If you want to customize default dialog,
                         // which will appear after any permission is permanently denied
                         SettingDialogRequest()
                             .setDialogTitleColor(Color.YELLOW)
@@ -65,14 +61,29 @@
                             .setDialogPositiveColor(Color.GREEN)
                             .setDialogNegativeColor(Color.RED)
                     )
-                    .request { grantedList, deniedList, permanentlyDeniedList ->
-                        // you have get the all permissions list on here
-                        Log.i(TAG, "Ask Multiple Permission -> Granted Permission List -> $grantedList")
-                        Log.i(TAG, "Ask Multiple Permission -> Denied Permission List -> $deniedList")
-                        Log.i(TAG, "Ask Multiple Permission -> PermanentlyDenied Permission List -> $permanentlyDeniedList")
-                        // Auto action after all permissions granted
-                        //  Write Your Code Here
-                    }
+                    .skipAutoAskPermission() // If you want to stop Auto Asking Denied permission
+                    .request(
+                        onGrantedResult = { grantedList ->
+                            Log.i(
+                                TAG,
+                                "Ask Multiple Permission -> Granted Permission List -> $grantedList"
+                            )
+                            // Auto action after all permissions granted
+                            //  Write Your Code Here
+                        },
+                        onDeniedResult = { deniedList ->
+                            Log.i(
+                                TAG,
+                                "Ask Multiple Permission -> Denied Permission List -> $deniedList"
+                            )
+                        },
+                        onPermanentlyDeniedResult = { permanentlyDeniedList ->
+                            Log.i(
+                                TAG,
+                                "Ask Multiple Permission -> PermanentlyDenied Permission List -> $permanentlyDeniedList"
+                            )
+                        }
+                    )
 ```
 
 #### In Java
@@ -80,50 +91,59 @@
 ###### Ask Single Permission:
 ```java
         AksPermission.with(MainActivity.this)
-                .permission(Manifest.permission.READ_CALENDAR)
-                .isShowDefaultSettingDialog(
-                        // Pass false if you don't want to showing a default setting dialog if some permissions are permanently denied.
-                        true // Default value is true,
-                )
-                .isShowDefaultToast(
-                        // Pass true if you want to showing a default toast message after user action.
-                        false // Default value is false,
-                )
-                .request(grantedList -> {
-                    // you have get the all granted permissions list on here
-                    Log.i(TAG, "Ask Single Permission -> Granted Permission List -> " + grantedList);
-                    // Auto action after all permissions granted
-                    //  Write Your Code Here
-                    return null;
-                });
+                        .permissions(Manifest.permission.READ_CALENDAR)
+                        .isShowDefaultSettingDialog(
+                                // Pass false if you don't want to showing a default setting dialog if some permissions are permanently denied.
+                                true // Default value is true,
+                        )
+                        .request(new PermissionResultListener() {
+                            @Override
+                            public void onGrantedResult(@NotNull Set<String> fGrantedList) {
+                                Log.i(TAG, "Ask Single Permission -> Granted Permission List -> " + fGrantedList);
+                                // Auto action after all permissions granted
+                                //  Write Your Code Here
+                            }
+                        });
 ```
 
 ###### Ask Multiple Permission:
 ```java
-        AksPermission.with(MainActivity.this)
-                .permissionList(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.RECORD_AUDIO
-                ) // You can pass N number of permission
-                .setCustomSettingDialog(
-                        // If you want to customize your settings dialog,
-                        // which will appear after any permission is permanently denied
-                        new SettingDialogRequest()
-                                .setDialogTitleColor(Color.YELLOW)
-                                .setDialogMessageColor(Color.BLUE)
-                                .setDialogPositiveColor(Color.GREEN)
-                                .setDialogNegativeColor(Color.RED)
-                )
-                .request((grantedList, deniedList, permanentlyDeniedList) -> {
-                    // you have get the all permissions list on here
-                    Log.i(TAG, "Ask Multiple Permission -> Granted Permission List -> " + grantedList);
-                    Log.i(TAG, "Ask Multiple Permission -> Denied Permission List -> " + deniedList);
-                    Log.i(TAG, "Ask Multiple Permission -> PermanentlyDenied Permission List -> " + permanentlyDeniedList);
-                    // Auto action after all permissions granted
-                    //  Write Your Code Here
-                    return null;
-                });
+        AksPermission.with(MainActivity2.this)
+                        .permissions(
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.RECORD_AUDIO
+                        ) // You can pass N number of permission
+                        .setDefaultSettingDialog(
+                                // If you want to customize your settings dialog,
+                                // which will appear after any permission is permanently denied
+                                new SettingDialogRequest()
+                                        .setDialogTitleColor(Color.YELLOW)
+                                        .setDialogMessageColor(Color.BLUE)
+                                        .setDialogPositiveColor(Color.GREEN)
+                                        .setDialogNegativeColor(Color.RED)
+                        )
+                        .skipAutoAskPermission() // If you want to stop Auto Asking Denied permission
+                        .request(new PermissionResultListener() {
+                            @Override
+                            public void onGrantedResult(@NotNull Set<String> fGrantedList) {
+                                Log.i(TAG, "Ask Multiple Permission -> Granted Permission List -> " + fGrantedList);
+                                // Auto action after all permissions granted
+                                //  Write Your Code Here
+                            }
+
+                            @Override
+                            public void onDeniedResult(@NotNull Set<String> fDeniedList) {
+                                super.onDeniedResult(fDeniedList);
+                                Log.i(TAG, "Ask Multiple Permission -> Denied Permission List -> " + fDeniedList);
+                            }
+
+                            @Override
+                            public void onPermanentlyDeniedResult(@NotNull Set<String> fPermanentlyDeniedList) {
+                                super.onPermanentlyDeniedResult(fPermanentlyDeniedList);
+                                Log.i(TAG, "Ask Multiple Permission -> PermanentlyDenied Permission List -> " + fPermanentlyDeniedList);
+                            }
+                        });
 ```
 
 #### Customize Settings Dialog
@@ -150,8 +170,10 @@
             .setDialogNegativeTypeface() // Font Style for dialog Negative Button Text
 
 ###### Click of dialog button:
-- **onPositive** button click -> pass user to **setting screen for grant denied permission.**
-- **onNegative** button click -> dismiss the dialog.
+    - **onPositive** button click -> pass user to **setting screen for grant denied permission.**
+    - **onNegative** button click -> dismiss the dialog.
+
+### ⭐️ If you liked it support me with your stars!
 
 ## License
 

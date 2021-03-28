@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             .setDialogPositiveColor(Color.GREEN)
                             .setDialogNegativeColor(Color.RED)
                     )
+                    .skipAutoAskPermission()
                     // Default value is true, Pass false if you don't want to showing a default setting dialog if some permission are permanently denied.
                     .isShowDefaultSettingDialog(mBinding.cbMainActivityShowDefaultSettingDialog.isChecked)
                     .request(
