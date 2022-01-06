@@ -208,7 +208,7 @@
        style="max-width:100%;">
   </a>
 
-  <a href="linkedin.com/in/akshay-harsoda-b66820116" rel="nofollow">
+  <a href="https://www.linkedin.com/in/akshay-harsoda-b66820116" rel="nofollow">
   <img alt="Follow me on LinkedIn" 
        height="50" width="50" 
        src="https://github.com/vickypathak123/Android-Ads-Helper/blob/master/social/linkedin.png" 
