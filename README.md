@@ -1,5 +1,5 @@
 # AksPermission-Android
-[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=social)](https://android-arsenal.com/api?level=16)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 [![](https://jitpack.io/v/AkshayHarsoda/AksPermission-Android.svg)](https://jitpack.io/#AkshayHarsoda/AksPermission-Android)
 - This Repositories will help you to get runtime permission easily.
 - This project has been **written in Kotlin language**.
